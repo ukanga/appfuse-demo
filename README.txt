@@ -18,3 +18,10 @@ To get started, please complete the following steps:
 
    http://appfuse.org/display/APF/AppFuse+QuickStart
 
+Websphere:
+- install war file on application server
+- configure class loading with parent last
+- remove from WEB-INF/lib the jars
+   - jaxb-api-2.2.jar
+   - jaxb-impl-2.1.13.jar
+- it should work now.
