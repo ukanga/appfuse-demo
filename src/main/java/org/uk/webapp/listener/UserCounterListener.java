@@ -1,5 +1,7 @@
 package org.uk.webapp.listener;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
@@ -26,6 +28,7 @@ import java.util.Set;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener {
+    private Log log = LogFactory.getLog(UserCounterListener.class);
     /**
      * Name of user counter variable
      */
@@ -141,11 +144,20 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
      */
     public void attributeRemoved(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
+            log.debug("B444 SecurityContext");
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            Authentication auth = securityContext.getAuthentication();
-            if (auth != null && (auth.getPrincipal() instanceof User)) {
-                User user = (User) auth.getPrincipal();
-                removeUsername(user);
+            log.debug(securityContext);
+            log.debug(event.getName());
+            log.debug(event.getValue());
+            log.debug("after SecurityContext");
+            try{
+                Authentication auth = securityContext.getAuthentication();
+                if (auth != null && (auth.getPrincipal() instanceof User)) {
+                    User user = (User) auth.getPrincipal();
+                    removeUsername(user);
+                }
+            }catch(Exception e){
+                log.debug(e);
             }
         }
     }
