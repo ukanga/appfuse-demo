@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-
-    <persistence-unit name="ApplicationEntityManager" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>org.appfuse.model.User</class>
-        <class>org.appfuse.model.Role</class>
-    </persistence-unit>
-
-    <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The
-        META-INF directory is included in the jsf, spring, struts and tapestry projects using svn:externals.
-        If you need to modify this file, please do so in web/common/src/main/resources/META-INF, check it
-        in, and then "svn up" for the other modules. -->
+  <persistence-unit name="ApplicationEntityManager" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>org.appfuse.model.User</class>
+    <class>org.appfuse.model.Role</class>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.password" value=""/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/demo"/>
+      <property name="hibernate.max_fetch_depth" value="3"/>
+      <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.WebSphereExtendedJTATransactionLookup"/>
+    </properties>
+  </persistence-unit>
 </persistence>
+
